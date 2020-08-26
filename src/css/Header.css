@@ -23,6 +23,10 @@
   border: 1px solid lightgray;
   border-radius: 999px;
 }
+
+.header__center > input {
+  border: none;
+}
 .header__right {
   display: flex;
   align-items: center;
