@@ -26,8 +26,12 @@
 
 .header__center > input {
   border: none;
+  width: 250px;
 }
 .header__right {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 15w;
+  margin-right: 80px;
 }
