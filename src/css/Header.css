@@ -1,6 +1,12 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  width: 100%;
 }
 .header__icon {
   object-fit: contain;
@@ -11,6 +17,11 @@
   display: flex;
   flex: 1;
   align-items: center;
+  max-width: fit-content;
+  padding: 10px;
+  height: 30px;
+  border: 1px solid lightgray;
+  border-radius: 999px;
 }
 .header__right {
   display: flex;
