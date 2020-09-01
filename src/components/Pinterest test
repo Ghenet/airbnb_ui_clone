@@ -1,0 +1,92 @@
+// Do not remove these imports. You may add others if you wish.
+import java.io.*;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+
+
+
+
+/*
+  Args:
+    offers: a String[][], each String[] representing an offer from a shop as a
+            triple of strings, <shop, gem type, gem count>
+            ex: {{"Sample Shop", "diamond", "15"}, ...}
+    preferences: a String[] of gems, most preferred gem first.
+  Returns:
+    An int[], how many of each gemstone you will buy. This will mirror
+    preferences. Ex: If preferences is {"jade", "ruby", "opal"}, and you will
+    buy 20 jades and 10 opals, return {20, 0, 10}
+*/
+public class Solution {
+  // If you need extra classes, you can define them privately here within class Solution
+
+  
+  static int[] gemstones(String[][] offers, String[] preferences) {
+    // Your code here.
+    
+    HashSet<String> hs = new HashSet<>();
+		int i, j, x;
+		String inHashSet;
+		for (i = 0; i < offers.length; ++i) {
+			hs.add((offers[i][0]));
+		}
+		int hsSize = hs.size();
+		ArrayList<HashMap<String, Integer>> ll = new ArrayList<>(hs.size());
+		Iterator<String> iter = hs.iterator();
+		while (iter.hasNext()) {
+			HashMap<String, Integer> temp = new HashMap<>();
+			inHashSet = iter.next();
+			for (j = 0; j < offers.length; ++j) {
+				if (inHashSet.equalsIgnoreCase(offers[j][0])) {
+					temp.put(offers[j][1], Integer.parseInt(offers[j][2]));
+				}
+			}
+			ll.add(temp);
+		}
+		int shrinkSize = hs.size();
+		int[] ret = new int[preferences.length];
+		for (i = 0; i < preferences.length; ++i) {
+			for (j = 0; j < shrinkSize; ++j) {
+				x = ll.get(j).getOrDefault(preferences[i], 0);
+				if (x != 0) {
+					ret[i] = ret[i] + x;
+					ll.remove(j--);
+					--shrinkSize;
+				}
+			}
+		}
+		return ret;
+  }
+
+  // DO NOT MODIFY MAIN()
+  public static void main(String[] args) {
+    ArrayList<String[]> offers = new ArrayList<>();
+    String[] preferences = new String[] {};
+
+    String line;
+    boolean breakLine = false;
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+      while ((line = br.readLine()) != null) {
+        if (line.equals("")) {
+          breakLine = true;
+          continue;
+        }
+
+        if(breakLine) {
+          preferences = line.split(",");
+        } else {
+          String[] tokens = line.split(",");
+          offers.add(tokens);
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      return;
+    }
+    String[][] offersArg = new String[offers.size()][2];
+    for(int i = 0; i < offers.size(); i++) {
+      offersArg[i] = offers.get(i);
+    }
